@@ -1,5 +1,7 @@
 import {
+  Button,
   createM3Palette,
+  Fab,
   NavigationRailItem,
   unstable_createMaterialDesign3Theme,
 } from "@dotdirewolf/mui-m3-theme";
@@ -13,6 +15,9 @@ import headbg from '../public/nathan-duck-Jo5FUEkhB_4-unsplash.jpg';
 import avatar from '../public/avatar.png';
 import Image from 'next/image';
 import { useRouter } from "next/router";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { solid, regular, brands, icon } from '@fortawesome/fontawesome-svg-core/import.macro';
+import MailOutlineIcon from '@mui/icons-material/MailOutline';
 
 export default function Home() {
   const m3Palette = createM3Palette({ r: 254, g: 80, b: 0, a: 1 });
@@ -26,8 +31,16 @@ export default function Home() {
 
         <NavigationRail>
           <div style={{ height: '80px' }} />
+          <Fab
+            variant="lowered"
+            color="secondary"
+            style={{
+              marginBottom: '28px',
+            }}
+            href='https://github.com/feightwywx/drwf.ink'><FontAwesomeIcon icon={brands('github')} size='xl' /></Fab>
           <NavigationRailItem icon={<HomeIcon />} label='首页' selected />
           <NavigationRailItem icon={<BookOutlinedIcon />} label='Blog' onClick={() => { router.push('https://direcore.xyz') }} />
+
         </NavigationRail>
         <div style={{
           marginLeft: '80px',
@@ -86,13 +99,25 @@ export default function Home() {
                       </div>
                     </div>
                     <Typography>
-                      IMIS专业在读。Web开发学习中。<br/>
-                      敲码 / 绘画 / 摄影
+                      IMIS专业在读。Web开发学习中。<br />
+                      敲码 / 绘画 / 摄影<br />
+                      移动端音游 / 任天堂 / 人外爱好者
                     </Typography>
                     <div>
-                      <Stack direction='row' spacing={2}>
-
-                      </Stack>
+                      <Grid container spacing={1}>
+                        <Grid item>
+                          <Button variant="outlined" color="secondary" startIcon={<FontAwesomeIcon icon={brands('github')} />} href='https://github.com/feightwywx'>feightwywx</Button>
+                        </Grid>
+                        <Grid item>
+                          <Button variant="outlined" color="secondary" startIcon={<FontAwesomeIcon icon={brands('twitter')} />} href='https://twitter.com/0x00F8'>@0x00f8</Button>
+                        </Grid>
+                        <Grid item>
+                          <Button variant="outlined" color="secondary" startIcon={<FontAwesomeIcon icon={brands('bilibili')} />} href='https://space.bilibili.com/2095080'>一只恐狼</Button>
+                        </Grid>
+                        <Grid item>
+                          <Button variant="outlined" color="secondary" startIcon={<MailOutlineIcon />} href='mailto:canis@direcore.xyz'>canis@direcore.xyz</Button>
+                        </Grid>
+                      </Grid>
                     </div>
                   </Stack>
                 </div>
