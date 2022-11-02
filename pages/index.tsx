@@ -1,28 +1,38 @@
 import {
   Button,
+  Card,
+  CardActions,
+  CardContent,
+  convertM3ToMuiPalette,
   createM3Palette,
   Fab,
   NavigationRailItem,
   unstable_createMaterialDesign3Theme,
 } from "@dotdirewolf/mui-m3-theme";
-import { CssBaseline, ThemeProvider, Container, Typography, Link, Stack, Grid } from "@mui/material";
+import { CssBaseline, ThemeProvider, Container, Typography, Link, Stack, Grid, styled, Box, useMediaQuery, createTheme } from "@mui/material";
 import { NavigationRail } from "@dotdirewolf/mui-m3-theme";
 import React from 'react';
 import HomeIcon from '@mui/icons-material/Home';
 import BookOutlinedIcon from '@mui/icons-material/BookOutlined';
 import AutoAwesomeOutlinedIcon from '@mui/icons-material/AutoAwesomeOutlined';
 import headbg from '../public/nathan-duck-Jo5FUEkhB_4-unsplash.jpg';
+import darkheadbg from '../public/nathan-duck-Jo5FUEkhB_4-unsplash-dark.jpg';
 import avatar from '../public/avatar.png';
 import Image from 'next/image';
 import { useRouter } from "next/router";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { solid, regular, brands, icon } from '@fortawesome/fontawesome-svg-core/import.macro';
 import MailOutlineIcon from '@mui/icons-material/MailOutline';
+import LaunchIcon from '@mui/icons-material/Launch';
 
 export default function Home() {
+  const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
   const m3Palette = createM3Palette({ r: 254, g: 80, b: 0, a: 1 });
-  const theme = unstable_createMaterialDesign3Theme(m3Palette);
+  const theme = React.useMemo(() => unstable_createMaterialDesign3Theme(
+    m3Palette, prefersDarkMode ? 'dark' : 'light'
+  ), [m3Palette, prefersDarkMode])
   const router = useRouter();
+
 
   return (
     <div>
@@ -51,21 +61,22 @@ export default function Home() {
             <div
               style={{
                 width: 'auto',
-                backgroundColor: theme.palette.surface.variant,
+                backgroundColor: prefersDarkMode ? theme.palette.surface.on : theme.palette.surface.variant,
+                color: prefersDarkMode ? theme.palette.surface.on : theme.palette.surface.variant,
                 padding: '20vh 5%',
                 maxHeight: '60vw',
                 borderRadius: '28px',
-                backgroundImage: `url(${headbg.src})`,
+                backgroundImage: `url(${prefersDarkMode ? darkheadbg.src : headbg.src})`,
                 backgroundSize: 'cover',
               }}>
-              <Typography variant="h1" color={theme.palette.surface.variant} style={{
+              <Typography variant="h1" style={{
                 fontWeight: 600,
                 fontFamily: 'Manrope',
                 textOverflow: 'clip'
               }}>
                 drwf.ink
               </Typography>
-              <Typography variant="h5" color={theme.palette.surface.variant} style={{
+              <Typography variant="h5" style={{
                 fontWeight: 400,
               }}>
                 {'=> drasitc rough wonderland fox.ink'}
@@ -78,9 +89,11 @@ export default function Home() {
               marginRight: 'auto',
             }}>
               <Stack spacing={8}>
-                <div>
+                <div style={{
+                  color:theme.palette.surface.on
+                }}>
                   <Stack spacing={2}>
-                    <Typography variant="h2" color={theme.palette.surface.on} style={{
+                    <Typography variant="h2" style={{
                       fontWeight: 600,
                       fontFamily: 'Manrope'
                     }}>
@@ -121,8 +134,93 @@ export default function Home() {
                     </div>
                   </Stack>
                 </div>
+
                 <div>
-                  <Typography>©️ 2022 .direwolf</Typography>
+                  <Stack spacing={2}>
+                    <Typography variant="h2" color={theme.palette.surface.on} style={{
+                      fontWeight: 600,
+                      fontFamily: 'Manrope',
+                      marginBottom: '16px'
+                    }}>
+                      Projects
+                    </Typography>
+
+                    <Grid container>
+                      <Grid item md={6}>
+                        <Card clickable variant='outlined' style={{
+                          height: '250px'
+                        }}
+                          sx={{ mr: { md: '16px' }, mb: { xs: '16px', md: 0 } }}>
+                          <CardContent style={{
+                            height: '168px'
+                          }}>
+                            <Stack spacing={2}>
+                              <Typography variant="h4" style={{
+                                fontFamily: 'Manrope',
+                                fontWeight: 500,
+                                color: theme.palette.surface.on
+                              }}>arcaea.icu</Typography>
+                              <Typography style={{
+                                color: theme.palette.surface.on
+                              }}>
+                                音乐游戏Arcaea自制相关资源，包含作谱辅助工具AFF工具箱和用于Python的谱面解析库arcfutil。个人谱面作品同样收录其中。
+                              </Typography>
+                            </Stack>
+                          </CardContent>
+                          <div></div>
+                          <CardActions style={{
+                            marginTop: 'auto',
+                            marginBottom: '0'
+                          }}>
+                            <div style={{ flexGrow: 1 }} />
+                            <Button variant='tonal' href='https://arcaea.icu/' endIcon={<LaunchIcon />} >
+                              了解更多
+                            </Button>
+                          </CardActions>
+                        </Card>
+                      </Grid>
+
+                      <Grid item md={6}>
+                        <Card clickable variant='outlined' style={{
+                          height: '250px'
+                        }}>
+                          <CardContent style={{
+                            height: '168px'
+                          }}>
+                            <Stack spacing={2}>
+                              <Typography variant="h4" style={{
+                                fontFamily: 'Manrope',
+                                fontWeight: 500,
+                                color: theme.palette.surface.on
+                              }}>mui-m3-theme</Typography>
+                              <Typography style={{
+                                color: theme.palette.surface.on
+                              }}>
+                                一套遵循Material Design 3规范的material-ui组件库。
+                              </Typography>
+                            </Stack>
+                          </CardContent>
+                          <div></div>
+                          <CardActions style={{
+                            marginTop: 'auto',
+                            marginBottom: '0'
+                          }}>
+                            <div style={{ flexGrow: 1 }} />
+                            <Button variant='tonal' href='https://arcaea.icu/' endIcon={<LaunchIcon />} disabled >
+                              了解更多
+                            </Button>
+                          </CardActions>
+                        </Card>
+                      </Grid>
+
+                    </Grid>
+                  </Stack>
+                </div>
+
+                <div style={{
+                  color:theme.palette.surface.on
+                }}>
+                  <Typography>Copyright (c) 2022 .direwolf</Typography>
                   <Typography>
                     Photo by <Link href="https://unsplash.com/@nvte?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Nathan Duck</Link> on <Link href='https://unsplash.com/s/photos/abstract-orange?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText'>Unsplash</Link>.
                   </Typography>
