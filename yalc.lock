@@ -1,8 +1,0 @@
-{
-  "version": "v1",
-  "packages": {
-    "@dotdirewolf/mui-m3-theme": {
-      "signature": "3e3291afbdeaa569635f75a8a12a4d07"
-    }
-  }
-}
