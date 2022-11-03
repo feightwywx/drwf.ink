@@ -71,10 +71,10 @@
     "@babel/helper-validator-identifier" "^7.19.1"
     to-fast-properties "^2.0.0"
 
-"@dotdirewolf/mui-m3-theme@^0.2.0":
-  version "0.2.0"
-  resolved "https://registry.yarnpkg.com/@dotdirewolf/mui-m3-theme/-/mui-m3-theme-0.2.0.tgz#50caf226edc5c66a0875d76e92d44ba2e35750f3"
-  integrity sha512-rFg9fRbOf/cCvpsU/62TuGgXm0MqKYzyOf6oeJZs1hupuvkqIjWg0eHP2G38cD089jN6+dEez8YcFe8uqsHbhw==
+"@dotdirewolf/mui-m3-theme@^0.3.0":
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/@dotdirewolf/mui-m3-theme/-/mui-m3-theme-0.3.0.tgz#58a3463a641268ba0f2e94d1cba170e94af8de1b"
+  integrity sha512-gA49JaiM/oWgIK3CrKjvkhzNVWdKmDFiBhthZcYlx6gyWnuvdUwtoCON+D54/SmyrMnw613A0JseY7zcbzLneQ==
   dependencies:
     "@elemental-design/material-color-utilities" "^0.0.4"
     "@emotion/react" "^11.7.1"
