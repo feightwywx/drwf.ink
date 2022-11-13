@@ -1,4 +1,5 @@
 import {
+  AppBar,
   Button,
   Card,
   CardActions,
@@ -8,13 +9,20 @@ import {
   Fab,
   NavigationRailItem,
   unstable_createMaterialDesign3Theme,
+  IconButton,
+  Drawer,
+  ListItem,
+  ListItemIcon,
+  ListItemText
 } from "@dotdirewolf/mui-m3-theme";
-import { CssBaseline, ThemeProvider, Container, Typography, Link, Stack, Grid, styled, Box, useMediaQuery, createTheme } from "@mui/material";
+import { CssBaseline, ThemeProvider, Container, Typography, Link, Stack, Grid, styled, Box, useMediaQuery, createTheme, Toolbar, responsiveFontSizes, List } from "@mui/material";
 import { NavigationRail } from "@dotdirewolf/mui-m3-theme";
-import React from 'react';
+import React, { useState } from 'react';
 import HomeIcon from '@mui/icons-material/Home';
 import BookOutlinedIcon from '@mui/icons-material/BookOutlined';
+import MenuIcon from '@mui/icons-material/Menu';
 import AutoAwesomeOutlinedIcon from '@mui/icons-material/AutoAwesomeOutlined';
+import MenuOpenIcon from '@mui/icons-material/MenuOpen';
 import headbg from '../public/nathan-duck-Jo5FUEkhB_4-unsplash.jpg';
 import darkheadbg from '../public/nathan-duck-Jo5FUEkhB_4-unsplash-dark.jpg';
 import avatar from '../public/avatar.png';
@@ -24,59 +32,113 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { solid, regular, brands, icon } from '@fortawesome/fontawesome-svg-core/import.macro';
 import MailOutlineIcon from '@mui/icons-material/MailOutline';
 import LaunchIcon from '@mui/icons-material/Launch';
+import Head from "next/head";
 
 export default function Home() {
   const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
   const m3Palette = createM3Palette({ r: 254, g: 80, b: 0, a: 1 });
-  const theme = React.useMemo(() => unstable_createMaterialDesign3Theme(
+  const theme = React.useMemo(() => responsiveFontSizes(unstable_createMaterialDesign3Theme(
     m3Palette, prefersDarkMode ? 'dark' : 'light'
-  ), [m3Palette, prefersDarkMode])
+  )), [m3Palette, prefersDarkMode])
   const router = useRouter();
-
+  const mobile = useMediaQuery(theme.breakpoints.down('md'));
+  const [drawerOpen, setDrawerOpen] = useState(false);
 
   return (
     <div>
+      <Head>
+        <title>.direwolf</title>
+      </Head>
       <ThemeProvider theme={theme}>
         <CssBaseline />
 
-        <NavigationRail>
-          <div style={{ height: '80px' }} />
-          <Fab
-            variant="lowered"
-            color="secondary"
-            style={{
-              marginBottom: '28px',
-            }}
-            href='https://github.com/feightwywx/drwf.ink'><FontAwesomeIcon icon={brands('github')} size='xl' /></Fab>
-          <NavigationRailItem icon={<HomeIcon />} label='首页' selected />
-          <NavigationRailItem icon={<BookOutlinedIcon />} label='Blog' onClick={() => { router.push('https://direcore.xyz') }} />
+        {mobile ? (
+          <>
+            <AppBar>
+              <Toolbar>
+                <IconButton
+                  size="large"
+                  edge="start"
+                  sx={{ mr: 2 }}
+                  onClick={() => setDrawerOpen(true)}
+                >
+                  <MenuIcon />
+                </IconButton>
+                <Typography variant="h6" component="div">
+                  drwf.ink
+                </Typography>
+              </Toolbar>
+            </AppBar>
+            <Drawer open={drawerOpen} onClose={() => setDrawerOpen(false)}>
+              <Toolbar>
+                <IconButton
+                  size="large"
+                  edge="start"
+                  sx={{ mr: 2 }}
+                  onClick={() => setDrawerOpen(false)}
 
-        </NavigationRail>
-        <div style={{
-          marginLeft: '80px',
-          marginBottom: '80px',
-          padding: '8px'
-        }}>
-          <Stack spacing={8}>
+                >
+                  <MenuOpenIcon />
+                </IconButton>
+              </Toolbar>
+              <List>
+                <ListItem
+                  active={true}>
+                  <ListItemIcon><HomeIcon /></ListItemIcon>
+                  <ListItemText>首页</ListItemText>
+                </ListItem>
+              </List>
+              <List>
+                <ListItem onClick={() => router.push('https://direcore.xyz')}>
+                  <ListItemIcon><BookOutlinedIcon /></ListItemIcon>
+                  <ListItemText>Blog</ListItemText>
+                </ListItem>
+              </List>
+            </Drawer>
+          </>
+        ) : (
+          <NavigationRail>
+            <div style={{ height: '80px' }} />
+            <Fab
+              variant="lowered"
+              color="secondary"
+              style={{
+                marginBottom: '28px',
+              }}
+              href='https://github.com/feightwywx/drwf.ink'><FontAwesomeIcon icon={brands('github')} size='xl' /></Fab>
+            <NavigationRailItem icon={<HomeIcon />} label='首页' selected />
+            <NavigationRailItem icon={<BookOutlinedIcon />} label='Blog' onClick={() => { router.push('https://direcore.xyz') }} />
+          </NavigationRail>
+        )}
+
+        <Box style={{
+          marginLeft: mobile ? 0 : '80px',
+          marginBottom: mobile ? '40px' : '80px',
+          padding: mobile ? '4px' : '8px'
+        }}
+          sx={{
+            mt: { xs: '60px', sm: '64px' }
+          }}>
+          <Stack spacing={{ xs: 6, md: 8 }}>
             <div
               style={{
                 width: 'auto',
                 backgroundColor: prefersDarkMode ? theme.palette.surface.on : theme.palette.surface.variant,
                 color: prefersDarkMode ? theme.palette.surface.on : theme.palette.surface.variant,
-                padding: '20vh 5%',
+                padding: mobile ? '20vh 5%' : '20vh 5%',
                 maxHeight: '60vw',
                 borderRadius: '28px',
                 backgroundImage: `url(${prefersDarkMode ? darkheadbg.src : headbg.src})`,
                 backgroundSize: 'cover',
               }}>
-              <Typography variant="h1" style={{
+              <Typography variant='h1' style={{
                 fontWeight: 600,
                 fontFamily: 'Manrope',
                 textOverflow: 'clip'
               }}>
                 drwf.ink
               </Typography>
-              <Typography variant="h5" style={{
+              <Typography variant='h5' style={{
                 fontWeight: 400,
               }}>
                 {'=> drasitc rough wonderland fox.ink'}
@@ -88,9 +150,9 @@ export default function Home() {
               marginLeft: 'auto',
               marginRight: 'auto',
             }}>
-              <Stack spacing={8}>
+              <Stack spacing={{ xs: 6, md: 8 }}>
                 <div style={{
-                  color:theme.palette.surface.on
+                  color: theme.palette.surface.on
                 }}>
                   <Stack spacing={2}>
                     <Typography variant="h2" style={{
@@ -180,9 +242,11 @@ export default function Home() {
                         </Card>
                       </Grid>
 
-                      <Grid item md={6}>
+                      <Grid item md={6} style={{
+                        flexGrow: 1
+                      }}>
                         <Card clickable variant='outlined' style={{
-                          height: '250px'
+                          height: '250px',
                         }}>
                           <CardContent style={{
                             height: '168px'
@@ -206,7 +270,7 @@ export default function Home() {
                             marginBottom: '0'
                           }}>
                             <div style={{ flexGrow: 1 }} />
-                            <Button variant='tonal' href='https://arcaea.icu/' endIcon={<LaunchIcon />} disabled >
+                            <Button variant='tonal' href='https://github.com/feightwywx/mui-m3-theme' endIcon={<LaunchIcon />}>
                               了解更多
                             </Button>
                           </CardActions>
@@ -218,7 +282,7 @@ export default function Home() {
                 </div>
 
                 <div style={{
-                  color:theme.palette.surface.on
+                  color: theme.palette.surface.on
                 }}>
                   <Typography>Copyright (c) 2022 .direwolf</Typography>
                   <Typography>
@@ -231,9 +295,7 @@ export default function Home() {
           </Stack>
 
 
-        </div>
-
-
+        </Box>
 
       </ThemeProvider>
     </div>
