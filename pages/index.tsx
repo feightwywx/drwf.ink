@@ -207,12 +207,12 @@ export default function Home() {
                       Projects
                     </Typography>
 
-                    <Grid container>
+                    <Grid rowSpacing={2} container>
                       <Grid item md={6}>
                         <Card clickable variant='outlined' style={{
                           height: '250px'
                         }}
-                          sx={{ mr: { md: '16px' }, mb: { xs: '16px', md: 0 } }}>
+                          sx={{ mr: { md: '16px' } }}>
                           <CardContent style={{
                             height: '168px'
                           }}>
@@ -261,6 +261,42 @@ export default function Home() {
                                 color: theme.palette.surface.on
                               }}>
                                 一套遵循Material Design 3规范的material-ui组件库。
+                              </Typography>
+                            </Stack>
+                          </CardContent>
+                          <div></div>
+                          <CardActions style={{
+                            marginTop: 'auto',
+                            marginBottom: '0'
+                          }}>
+                            <div style={{ flexGrow: 1 }} />
+                            <Button variant='tonal' href='https://github.com/feightwywx/mui-m3-theme' endIcon={<LaunchIcon />}>
+                              了解更多
+                            </Button>
+                          </CardActions>
+                        </Card>
+                      </Grid>
+
+                      <Grid item md={6} sx={{
+                        flexGrow: 1,
+                      }}>
+                        <Card clickable variant='outlined' sx={{
+                          height: '250px',
+                          mr: { md: theme.spacing(2)}
+                        }}>
+                          <CardContent style={{
+                            height: '168px'
+                          }}>
+                            <Stack spacing={2}>
+                              <Typography variant="h4" style={{
+                                fontFamily: 'Manrope',
+                                fontWeight: 500,
+                                color: theme.palette.surface.on
+                              }}>homework-mis</Typography>
+                              <Typography style={{
+                                color: theme.palette.surface.on
+                              }}>
+                                一个基于Next.js的作业管理系统，包含教师端和学生端。
                               </Typography>
                             </Stack>
                           </CardContent>
