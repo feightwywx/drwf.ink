@@ -153,12 +153,7 @@ export default function Layout({
                 mb: { xs: theme.spacing(4), md: theme.spacing(8) },
               }}
             >
-              <Typography>
-                Copyright © .direwolf 2022.{" "}
-                <Link href="https://beian.miit.gov.cn">
-                  皖ICP备20002195号-3
-                </Link>
-              </Typography>
+              <Typography>Copyright © .direwolf 2022. </Typography>
 
               <Typography>
                 Title Photo by{" "}
@@ -171,6 +166,7 @@ export default function Layout({
                 </Link>
                 .
               </Typography>
+              <Link href="https://beian.miit.gov.cn">皖ICP备20002195号-3</Link>
             </Box>
           </Container>
         </Box>
