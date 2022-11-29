@@ -44,7 +44,7 @@ export const HeadLine: React.FC<{
       >
         {title}
       </Typography>
-      <Typography variant="h5">
+      <Typography variant="h5" sx={{mt: '0.5em'}}>
         {subtitle}
       </Typography>
     </div>
