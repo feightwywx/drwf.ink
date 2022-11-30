@@ -92,13 +92,13 @@ export default function Layout({
                 </IconButton>
               </Toolbar>
               <List>
-                <ListItem active={true}>
+                <ListItem onClick={() => router.push("/")} active={true}>
                   <ListItemIcon>
                     <HomeIcon />
                   </ListItemIcon>
                   <ListItemText>首页</ListItemText>
                 </ListItem>
-                <ListItem onClick={() => router.push("https://direcore.xyz")}>
+                <ListItem onClick={() => router.push("/blog")}>
                   <ListItemIcon>
                     <BookOutlinedIcon />
                   </ListItemIcon>
@@ -120,12 +120,19 @@ export default function Layout({
             >
               <FontAwesomeIcon icon={brands("github")} size="xl" />
             </Fab>
-            <NavigationRailItem icon={<HomeIcon />} label="首页" selected />
+            <NavigationRailItem
+              icon={<HomeIcon />}
+              label="首页"
+              onClick={() => {
+                router.push("/");
+              }}
+              selected
+            />
             <NavigationRailItem
               icon={<BookOutlinedIcon />}
               label="Blog"
               onClick={() => {
-                router.push("https://direcore.xyz");
+                router.push("/blog");
               }}
             />
           </NavigationRail>

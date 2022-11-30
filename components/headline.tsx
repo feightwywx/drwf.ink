@@ -37,6 +37,8 @@ export const HeadLine: React.FC<{
       <Typography
         variant="h1"
         style={{
+          ...theme.typography.displayLarge,
+          fontSize: 64,
           fontWeight: 600,
           fontFamily: "Manrope",
           textOverflow: "clip",
@@ -44,7 +46,7 @@ export const HeadLine: React.FC<{
       >
         {title}
       </Typography>
-      <Typography variant="h5" sx={{mt: '0.5em'}}>
+      <Typography variant="h5" style={theme.typography.displaySmall} sx={{mt: '0.5em'}}>
         {subtitle}
       </Typography>
     </div>

@@ -64,7 +64,7 @@ const Home: NextPage = () => {
     <Stack spacing={{ xs: 6, md: 8 }}>
       <HeadLine
         title="drwf.ink"
-        subtitle="=> drasitc rough wonderland fox.ink"
+        subtitle="drasitc rough wonderland fox.ink"
       />
 
       <Container
