@@ -23,8 +23,10 @@ import {
   List,
 } from "@mui/material";
 import { NavigationRail } from "@dotdirewolf/mui-m3-theme";
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import HomeIcon from "@mui/icons-material/Home";
+import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
+import BookIcon from "@mui/icons-material/Book";
 import BookOutlinedIcon from "@mui/icons-material/BookOutlined";
 import MenuIcon from "@mui/icons-material/Menu";
 import MenuOpenIcon from "@mui/icons-material/MenuOpen";
@@ -32,6 +34,21 @@ import { useRouter } from "next/router";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { brands } from "@fortawesome/fontawesome-svg-core/import.macro";
 import Head from "next/head";
+
+const navItem = [
+  {
+    id: "",
+    label: "首页",
+    icon: <HomeOutlinedIcon />,
+    selectedIcon: <HomeIcon />,
+  },
+  {
+    id: "blog",
+    label: "Blog",
+    icon: <BookOutlinedIcon />,
+    selectedIcon: <BookIcon />,
+  },
+];
 
 export default function Layout({
   children,
@@ -53,6 +70,10 @@ export default function Layout({
   const router = useRouter();
   const mobile = useMediaQuery(theme.breakpoints.down("md"));
   const [drawerOpen, setDrawerOpen] = useState(false);
+
+  const currentPart = useMemo(() => {
+    return router.pathname.split("/")[1];
+  }, [router.pathname]);
 
   return (
     <div>
@@ -92,18 +113,21 @@ export default function Layout({
                 </IconButton>
               </Toolbar>
               <List>
-                <ListItem onClick={() => router.push("/")} active={true}>
-                  <ListItemIcon>
-                    <HomeIcon />
-                  </ListItemIcon>
-                  <ListItemText>首页</ListItemText>
-                </ListItem>
-                <ListItem onClick={() => router.push("/blog")}>
-                  <ListItemIcon>
-                    <BookOutlinedIcon />
-                  </ListItemIcon>
-                  <ListItemText>Blog</ListItemText>
-                </ListItem>
+                {navItem.map((item) => (
+                  <ListItem
+                    key={item.id}
+                    onClick={() => {
+                      router.push(`/${item.id}`);
+                      setDrawerOpen(false);
+                    }}
+                    active={currentPart === item.id}
+                  >
+                    <ListItemIcon>
+                      {currentPart === item.id ? item.selectedIcon : item.icon}
+                    </ListItemIcon>
+                    <ListItemText>{item.label}</ListItemText>
+                  </ListItem>
+                ))}
               </List>
             </Drawer>
           </>
@@ -120,21 +144,17 @@ export default function Layout({
             >
               <FontAwesomeIcon icon={brands("github")} size="xl" />
             </Fab>
-            <NavigationRailItem
-              icon={<HomeIcon />}
-              label="首页"
+            {navItem.map((item) => (
+              <NavigationRailItem
+              key={item.id}
+              icon={currentPart === item.id ? item.selectedIcon : item.icon}
+              label={item.label}
               onClick={() => {
-                router.push("/");
+                router.push(`/${item.id}`);
               }}
-              selected
+              selected={currentPart === item.id}
             />
-            <NavigationRailItem
-              icon={<BookOutlinedIcon />}
-              label="Blog"
-              onClick={() => {
-                router.push("/blog");
-              }}
-            />
+            ))}
           </NavigationRail>
         )}
 
