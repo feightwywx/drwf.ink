@@ -1,4 +1,4 @@
-import { Container, Divider, Link, Typography, useMediaQuery, useTheme } from "@mui/material";
+import { Container, Divider as MuiDivider, Link, Typography, useMediaQuery, useTheme } from "@mui/material";
 import type { NextPage } from "next";
 import ReactMarkdown from "react-markdown";
 import { HeadLine } from "../../components/headline";
@@ -73,6 +73,10 @@ const Code: React.FC = ({ node, inline, className, children, ...props }) => {
     </code>
   );
 };
+
+const Divider: React.FC = () => {
+  return <MuiDivider style={{margin: '2rem'}} />
+}
 
 const Post: NextPage<{ postData: unknown }> = ({ postData }) => {
   return (
