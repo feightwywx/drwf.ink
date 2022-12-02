@@ -1,4 +1,15 @@
-import { Container, Divider as MuiDivider, Link, Typography, useMediaQuery, useTheme } from "@mui/material";
+/* eslint-disable @next/next/no-img-element */
+import {
+  Box,
+  Container,
+  Dialog,
+  Divider as MuiDivider,
+  Link,
+  Modal,
+  Typography,
+  useMediaQuery,
+  useTheme,
+} from "@mui/material";
 import type { NextPage } from "next";
 import ReactMarkdown from "react-markdown";
 import { HeadLine } from "../../components/headline";
@@ -6,15 +17,17 @@ import { getAllPostIds, getPostData } from "../../utils/blog";
 import rehypeRaw from "rehype-raw";
 import remarkGfm from "remark-gfm";
 import rehypeSlug from "rehype-slug";
-import TagIcon from '@mui/icons-material/Tag';
+import TagIcon from "@mui/icons-material/Tag";
+import NextImage from "next/legacy/image";
 
-import React from "react";
+import React, { useState } from "react";
 import type {
   Typography as TypographyType,
   Variant,
 } from "@mui/material/styles/createTypography";
 
 import { CopyBlock, atomOneDark, atomOneLight } from "react-code-blocks";
+import { borderRadius } from "@mui/system";
 
 const typographyStylesMapping = {
   h1: "headlineLarge",
@@ -75,8 +88,66 @@ const Code: React.FC = ({ node, inline, className, children, ...props }) => {
 };
 
 const Divider: React.FC = () => {
-  return <MuiDivider style={{margin: '2rem'}} />
-}
+  return <MuiDivider style={{ margin: "2rem" }} />;
+};
+
+const Paragraph: React.FC = ({ node, children, ...props }) => {
+  const theme = useTheme();
+  const mobile = useMediaQuery(theme.breakpoints.down("xl"));
+  const [modal, setModal] = useState(false);
+
+  if (node.children[0].tagName === "img") {
+    const image = node.children[0];
+    const metastring = image.properties.alt;
+
+    return (
+      <Box
+        style={{
+          marginTop: "24px",
+          marginBottom: "24px",
+        }}
+      >
+        <img
+          src={image.properties.src}
+          alt={metastring}
+          style={{
+            display: "block",
+            maxWidth: mobile ? "70vw" : "60vw",
+            marginLeft: "auto",
+            marginRight: "auto",
+            borderRadius: "8px",
+          }}
+          onClick={() => setModal(true)}
+        />
+        <Box
+          style={{
+            ...theme.typography.labelLarge,
+            marginTop: "8px",
+            textAlign: "center",
+          }}
+        >
+          {metastring}
+        </Box>
+        <Dialog
+          open={modal}
+          onClose={() => {
+            setModal(false);
+          }}
+          maxWidth="xl"
+        >
+          <img
+            src={image.properties.src}
+            alt={metastring}
+            onClick={() => {
+              setModal(false);
+            }}
+          />
+        </Dialog>
+      </Box>
+    );
+  }
+  return <Typography style={{ marginBottom: "8px" }}>{children}</Typography>;
+};
 
 const Post: NextPage<{ postData: unknown }> = ({ postData }) => {
   return (
@@ -90,7 +161,7 @@ const Post: NextPage<{ postData: unknown }> = ({ postData }) => {
           remarkPlugins={[remarkGfm]}
           rehypePlugins={[rehypeRaw, rehypeSlug]}
           components={{
-            p: Typography,
+            p: Paragraph,
             a: Link,
             h1: Heading,
             h2: Heading,
