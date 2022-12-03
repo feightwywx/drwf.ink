@@ -3,3 +3,7 @@
   width: 64px;
   border-radius: 50%;
 }
+
+p {
+  word-break: break-all;
+}
