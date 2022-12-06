@@ -5,7 +5,7 @@ import darkheadbg from "../public/nathan-duck-Jo5FUEkhB_4-unsplash-dark.jpg";
 
 export const HeadLine: React.FC<{
   title: string;
-  subtitle: string;
+  subtitle?: string;
 }> = ({ title, subtitle }) => {
   const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
   const theme = useTheme();
@@ -42,17 +42,21 @@ export const HeadLine: React.FC<{
       >
         {title}
       </Typography>
-      <Typography
-        variant="h5"
-        style={
-          mobile
-            ? theme.typography.headlineSmall
-            : theme.typography.headlineLarge
-        }
-        sx={{ mt: { xs: "1em", sm: "0.5em" } }}
-      >
-        {subtitle}
-      </Typography>
+      {subtitle ? (
+        <Typography
+          variant="h5"
+          style={
+            mobile
+              ? theme.typography.headlineSmall
+              : theme.typography.headlineLarge
+          }
+          sx={{ mt: { xs: "1em", sm: "0.5em" } }}
+        >
+          {subtitle}
+        </Typography>
+      ) : (
+        null
+      )}
     </Box>
   );
 };

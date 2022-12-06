@@ -1,31 +1,58 @@
-import fs from 'fs';
-import path from 'path';
-import matter from 'gray-matter';
+import fs from "fs";
+import path from "path";
+import matter from "gray-matter";
+import moment from "moment";
+import { BlogData, BlogFrontMatter, BlogPreview } from "./types";
 
-export function getAllPostIds() {
-  const fileNames = fs.readdirSync('blog');
+export function matterParser(fileContents: string) {
+  const matterResult = matter(fileContents);
+  const content = matterResult.content;
+  const data = matterResult.data as unknown as BlogFrontMatter;
 
-  return fileNames.map((fileName) => {
-    return {
-      params: {
-        slug: fileName.replace(/\.md$/, ''),
-      },
-    };
-  });
+  return { content, data };
 }
 
-export function getPostData(slug) {
-  const fullPath = path.join('blog', `${slug}.md`);
-  const fileContents = fs.readFileSync(fullPath, 'utf8');
+export function getAllPostIds() {
+  const fileNames = fs
+    .readdirSync("blog")
+    .map((fileName) => fileName.replace(/\.md$/, ""));
 
-  // Use gray-matter to parse the post metadata section
-  const matterResult = matter(fileContents);
+  return fileNames;
+}
 
-  // Combine the data with the id
+export function getPostData(slug: string): BlogData {
+  const fullPath = path.join("blog", `${slug}.md`);
+  const fileContents = fs.readFileSync(fullPath, "utf8");
+
+  const { data, content } = matterParser(fileContents);
+
   return {
-    id: slug,
     slug,
-    content: matterResult.content,
-    ...matterResult.data,
+    content,
+    ...data,
   };
+}
+
+export function getBlogPreviewList(): BlogPreview[] {
+  const fileNames = fs.readdirSync("blog");
+
+  return fileNames
+    .map((fileName) => {
+      const slug = fileName.replace(/\.md$/, "");
+      const fullPath = path.join("blog", fileName);
+      const fileContents = fs.readFileSync(fullPath, "utf8");
+
+      const { data, content } = matterParser(fileContents);
+
+      const prevSplits = content.split(/<!--[\s]*more[\s]*-->/);
+
+      return {
+        slug,
+        preview: prevSplits.length > 1 ? prevSplits[0] : null,
+        ...data,
+      };
+    })
+    .sort((a, b) => {
+      return moment(a.created).unix() < moment(b.created).unix() ? 1 : -1;
+    });
 }
