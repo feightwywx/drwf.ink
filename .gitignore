@@ -38,5 +38,3 @@ next-env.d.ts
 # yalc
 .yalc
 yalc.lock
-
-/blog
