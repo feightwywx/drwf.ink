@@ -28,9 +28,15 @@ const aboutLinks = [
     icon: <FontAwesomeIcon icon={brands("twitter")} />,
   },
   {
-    label: "一只恐狼",
+    label: "点儿恐狼",
     href: "https://space.bilibili.com/2095080",
     icon: <FontAwesomeIcon icon={brands("bilibili")} />,
+  },
+  {
+    label: ".direwolf",
+    href: "https://www.pixiv.net/users/18633958",
+    // @ts-expect-error Argument of type '"pixiv"' is not assignable to parameter of type 'IconName'.
+    icon: <FontAwesomeIcon icon={brands("pixiv")} />,
   },
   {
     label: "canis@direcore.xyz",
@@ -64,7 +70,7 @@ const Home: NextPage = () => {
     <Stack spacing={{ xs: 6, md: 8 }}>
       <HeadLine
         title="drwf.ink"
-        subtitle="drasitc rough wonderland fox.ink"
+        subtitle="絶滅生物が残したインクの跡"
       />
 
       <Container
@@ -98,11 +104,11 @@ const Home: NextPage = () => {
               </div>
               {/* 介绍 */}
               <Typography>
-                IMIS专业在读。Web开发学习中。
+                IMIS专业。Web开发学习中。
                 <br />
                 敲码 / 绘画 / 摄影
                 <br />
-                移动端音游 / 任天堂 / 人外爱好者
+                音游 / 任天堂 / 人外爱好者
               </Typography>
               <Grid container spacing={1}>
                 {aboutLinks.map((link, index) => (

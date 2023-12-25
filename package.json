@@ -1,6 +1,6 @@
 {
   "name": "drwf.ink",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -13,7 +13,7 @@
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
     "@fortawesome/fontawesome-svg-core": "^6.2.0",
-    "@fortawesome/free-brands-svg-icons": "^6.2.0",
+    "@fortawesome/free-brands-svg-icons": "^6.5.1",
     "@fortawesome/free-regular-svg-icons": "^6.2.0",
     "@fortawesome/free-solid-svg-icons": "^6.2.0",
     "@fortawesome/react-fontawesome": "^0.2.0",
@@ -39,5 +39,6 @@
     "eslint-config-prettier": "^8.5.0",
     "prettier": "2.8.0",
     "typescript": "4.8.4"
-  }
+  },
+  "packageManager": "yarn@4.0.2"
 }
