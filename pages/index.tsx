@@ -25,7 +25,14 @@ const aboutLinks = [
   {
     label: "@0x00F8",
     href: "https://twitter.com/0x00F8",
-    icon: <FontAwesomeIcon icon={brands("twitter")} />,
+    // @ts-expect-error Argument of type '"x-twitter"' is not assignable to parameter of type 'IconName'.
+    icon: <FontAwesomeIcon icon={brands("x-twitter")} />,
+  },
+  {
+    label: "@drwf.ink",
+    href: "https://bsky.app/profile/drwf.ink",
+    // @ts-expect-error Argument of type '"bluesky"' is not assignable to parameter of type 'IconName'.
+    icon: <FontAwesomeIcon icon={brands("bluesky")} />,
   },
   {
     label: "点儿恐狼",
@@ -108,7 +115,7 @@ const Home: NextPage = () => {
                 <br />
                 敲码 / 绘画 / 摄影
                 <br />
-                音游 / 任天堂 / 人外爱好者
+                音游 / 任天堂 / 毛毛爱好者
               </Typography>
               <Grid container spacing={1}>
                 {aboutLinks.map((link, index) => (

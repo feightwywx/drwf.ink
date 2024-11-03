@@ -47,6 +47,7 @@ const navItem = [
     label: "Blog",
     icon: <BookOutlinedIcon />,
     selectedIcon: <BookIcon />,
+    href: "https://blog.drwf.ink/",
   },
 ];
 
@@ -146,14 +147,16 @@ export default function Layout({
             </Fab>
             {navItem.map((item) => (
               <NavigationRailItem
-              key={item.id}
-              icon={currentPart === item.id ? item.selectedIcon : item.icon}
-              label={item.label}
-              onClick={() => {
-                router.push(`/${item.id}`);
-              }}
-              selected={currentPart === item.id}
-            />
+                key={item.id}
+                icon={currentPart === item.id ? item.selectedIcon : item.icon}
+                label={item.label}
+                onClick={
+                  item.href
+                    ? () => window.open(item.href)
+                    : () => router.push(`/${item.id}`)
+                }
+                selected={currentPart === item.id}
+              />
             ))}
           </NavigationRail>
         )}
